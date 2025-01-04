@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate,login,logout
+from .models import CustomUser
+
 
 
 
@@ -44,3 +46,9 @@ def index(request):
     }
     return render(request,'index.html',context)
     #return HttpResponse("this is about page") 
+
+def authors_and_sellers(request):
+    # Filter users with public_visibility=True
+    public_users = CustomUser.objects.filter(public_visibility=True)
+    context = {'public_users': public_users}
+    return render(request, 'authors_and_sellers.html', context)
