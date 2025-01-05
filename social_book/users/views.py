@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate,login,logout
 from .models import CustomUser
+from django.http import JsonResponse
+from .models import UploadedFile
 
 
 
@@ -52,3 +54,40 @@ def authors_and_sellers(request):
     public_users = CustomUser.objects.filter(public_visibility=True)
     context = {'public_users': public_users}
     return render(request, 'authors_and_sellers.html', context)
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+
+from django.shortcuts import render, redirect
+from .models import UploadedFile
+
+def upload_file(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        description = request.POST['description']
+        visibility = request.POST['visibility']
+        cost = request.POST['cost']
+        year_of_publication = request.POST['year']
+        file = request.FILES['file']
+
+        # Save uploaded file data to the model
+        uploaded_file = UploadedFile(
+            title=title,
+            description=description,
+            visibility=visibility,
+            cost=cost,
+            year_of_publication=year_of_publication,
+            file_name=file.name,
+            file_path=file,
+            file_type=file.content_type
+        )
+        uploaded_file.save()
+
+        # Redirect to the same view to display updated files
+        return redirect('/upload/')
+
+    # Fetch all uploaded files to display
+    uploaded_files = UploadedFile.objects.all()
+    return render(request, 'dashboard.html', {'uploaded_files': uploaded_files})
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Books</title>
+</head>
+<body>
+    <h1>Upload Books</h1>
+    <div id="uploadedFiles">
+        {% if uploaded_files %}
+            {% for file in uploaded_files %}
+                <div>
+                    <h3>{{ file.title }}</h3>
+                    <p><strong>Description:</strong> {{ file.description }}</p>
+                    <p><strong>Visibility:</strong> {{ file.visibility }}</p>
+                    <p><strong>Cost:</strong> ${{ file.cost }}</p>
+                    <p><strong>Year of Publication:</strong> {{ file.year_of_publication }}</p>
+                    <p><strong>File:</strong> 
+                        <a href="{{ file.file_path.url }}" target="_blank">Download/View</a>
+                    </p>
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p>No files have been uploaded yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

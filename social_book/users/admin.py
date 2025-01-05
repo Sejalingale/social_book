@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
+from .models import UploadedFile
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
@@ -22,3 +23,9 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('birth_year', 'address', 'public_visibility'),
         }),
     )
+
+@admin.register(UploadedFile)
+class UploadedFileAdmin(admin.ModelAdmin):
+    list_display = ('title', 'description', 'visibility', 'cost', 'year_of_publication', 'file_name')
+    search_fields = ('title', 'description')
+    list_filter = ('visibility', 'year_of_publication')
