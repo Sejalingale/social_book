@@ -5,6 +5,13 @@ from django.contrib.auth import authenticate,login,logout
 from .models import CustomUser
 from django.http import JsonResponse
 from .models import UploadedFile
+from .models import CustomUser
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib import messages
+from .serializers import UploadedFileSerializer
+from rest_framework.views import APIView
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
 
 
@@ -28,15 +35,39 @@ def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-
-        user = authenticate(request, username=username ,password=password)
-
+        
+        user = authenticate(request, username=username, password=password)
+        
+        
         if user is not None:
-            login(request,user)
-            return redirect('index')
-    context={}
-    return render(request,'login.html',context)
-    #return HttpResponse("this is about page")   
+            login(request, user)
+                        # Generate JWT token
+            serializer = TokenObtainPairSerializer(data={"username": username, "password": password})
+            if serializer.is_valid():
+                
+                tokens = serializer.validated_data
+                access_token = tokens['access']
+                refresh_token = tokens['refresh']
+                
+                request.session['access_token'] = access_token
+                request.session['refresh_token'] = refresh_token
+                
+                
+                response = redirect('index')
+                response.set_cookie('access_token', access_token)  # Store token in cookie if needed
+                response.set_cookie('refresh_token', refresh_token) 
+                
+                return response
+                
+            else:
+                messages.error(request, 'Token generation failed')
+                return redirect('login')  # Redirect back to login if token generation fails
+
+        else:
+            messages.error(request, 'Invalid credentials')
+            return redirect('userLogin')  # Redirect back to login on failed authentication 
+        
+    return render(request,'login.html')
 
 def logoutPage(request):
     logout(request)
@@ -90,4 +121,14 @@ def upload_file(request):
     # Fetch all uploaded files to display
     uploaded_files = UploadedFile.objects.all()
     return render(request, 'dashboard.html', {'uploaded_files': uploaded_files})
+
+class UserUploadedFilesView(APIView):
+  permission_classes = [IsAuthenticated]
+
+def get(self, request):
+# Fetch files uploaded by the logged-in user
+    files = UploadedFile.objects.filter(user=request.user)
+    serializer = UploadedFileSerializer(files, many=True)
+    return Response(serializer.data)
+
 
