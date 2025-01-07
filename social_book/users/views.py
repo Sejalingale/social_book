@@ -14,11 +14,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 
-
-
 # Create your views here.
-
-
 
 def register(request):
     form = CustomUserCreationForm()
@@ -90,8 +86,8 @@ def dashboard(request):
     return render(request, 'dashboard.html')
 
 
-from django.shortcuts import render, redirect
-from .models import UploadedFile
+
+
 
 def upload_file(request):
     if request.method == 'POST':
@@ -102,8 +98,9 @@ def upload_file(request):
         year_of_publication = request.POST['year']
         file = request.FILES['file']
 
-        # Save uploaded file data to the model
+        # Save uploaded file data to the model with logged in user
         uploaded_file = UploadedFile(
+            user=request.user,
             title=title,
             description=description,
             visibility=visibility,
@@ -117,10 +114,12 @@ def upload_file(request):
 
         # Redirect to the same view to display updated files
         return redirect('/upload/')
-
-    # Fetch all uploaded files to display
-    uploaded_files = UploadedFile.objects.all()
+    
+    # Fetch all uploaded files by logged in user to display
+    uploaded_files = UploadedFile.objects.filter(user=request.user)
     return render(request, 'dashboard.html', {'uploaded_files': uploaded_files})
+
+
 
 class UserUploadedFilesView(APIView):
   permission_classes = [IsAuthenticated]

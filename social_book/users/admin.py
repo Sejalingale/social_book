@@ -26,6 +26,6 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(UploadedFile)
 class UploadedFileAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'visibility', 'cost', 'year_of_publication', 'file_name')
+    list_display = ('user','title', 'description', 'visibility', 'cost', 'year_of_publication', 'file_name')
     search_fields = ('title', 'description')
     list_filter = ('visibility', 'year_of_publication')

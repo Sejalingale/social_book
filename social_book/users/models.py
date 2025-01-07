@@ -17,6 +17,7 @@ class CustomUser(AbstractUser):
 
 
 class UploadedFile(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
     visibility = models.CharField(max_length=50, choices=[('public', 'Public'), ('private', 'Private')])
