@@ -164,6 +164,13 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'sejalingale17@gmail.com'  # Replace with your email
+EMAIL_HOST_PASSWORD = 'jzpp imku exfo xjeb'  # Replace with your app-specific password or email password
+
 
 
 
