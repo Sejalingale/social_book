@@ -1,24 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Authors and Sellers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h1 {
+            background-color: #6c63ff;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #f9f9ff;
+            margin: 10px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        li strong {
+            color: #6c63ff;
+            font-size: 1.2em;
+        }
+
+        li p {
+            margin: 5px 0;
+            font-size: 0.95em;
+        }
+
+        p.no-users {
+            text-align: center;
+            color: #666;
+            font-size: 1.1em;
+        }
+    </style>
 </head>
 <body>
     <h1>Authors and Sellers</h1>
-
-    {% if public_users %}
-        <ul>
-            {% for user in public_users %}
-                <li>
-                    <strong>{{ user.username }}</strong><br>
-                    Email: {{ user.email }}<br>
-                    Address: {{ user.address }}<br>
-                    Age: {{ user.age }}  <!-- Assumes age property is defined -->
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No public users found.</p>
-    {% endif %}
+    <div class="container">
+        {% if public_users %}
+            <ul>
+                {% for user in public_users %}
+                    <li>
+                        <strong>{{ user.username }}</strong>
+                        <p>Email: {{ user.email }}</p>
+                        <p>Address: {{ user.address }}</p>
+                        <p>Age: {{ user.age }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-users">No public users found.</p>
+        {% endif %}
+    </div>
 </body>
 </html>

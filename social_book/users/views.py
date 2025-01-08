@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
+from django.http import JsonResponse
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate,login,logout
 from .models import CustomUser
-from django.http import JsonResponse
 from .models import UploadedFile
 from .models import CustomUser
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -19,10 +19,13 @@ import string
 
 
 
+
 # Create your views here.
 
 def register(request):
     form = CustomUserCreationForm()
+     
+    
     
     if request.method == 'POST':
          form = CustomUserCreationForm(request.POST)
@@ -107,6 +110,15 @@ def verify_otp(request):
             # Clear OTP and user id from session
             del request.session['otp']
             del request.session['user_id']
+
+            # Send a confirmation email to the user
+            send_mail(
+                'Login Successful',
+                f'Hello {user.username},\n\nYou have successfully logged into your account on Social_Book.',
+                settings.EMAIL_HOST_USER,  # Ensure this is your email in settings.py
+                [user.email],
+                fail_silently=False,
+            )
 
             # Redirect to the dashboard or home page
             return redirect('index')  # or 'index'

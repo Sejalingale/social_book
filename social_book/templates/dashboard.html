@@ -4,13 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uploaded Books</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            background-color: #6c63ff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin: 0;
+        }
+
+        #uploadedFiles {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-card {
+            background: #f9f9ff;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        .file-card h3 {
+            color: #6c63ff;
+            margin: 0;
+        }
+
+        .file-card p {
+            margin: 5px 0;
+        }
+
+        .file-card a {
+            color: #6c63ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .file-card a:hover {
+            text-decoration: underline;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: #ddd;
+            margin: 20px 0;
+        }
+
+        p.no-files {
+            text-align: center;
+            font-size: 1.1em;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-  <h1>Uploaded Books</h1>
+    <h1>Uploaded Books</h1>
     <div id="uploadedFiles">
         {% if uploaded_files %}
             {% for file in uploaded_files %}
-                <div>
+                <div class="file-card">
                     <h3>{{ file.title }}</h3>
                     <p><strong>Description:</strong> {{ file.description }}</p>
                     <p><strong>Visibility:</strong> {{ file.visibility }}</p>
@@ -20,10 +87,9 @@
                         <a href="{{ file.file_path.url }}" target="_blank">Download/View</a>
                     </p>
                 </div>
-                <hr>
             {% endfor %}
         {% else %}
-            <p>No files have been uploaded yet.</p>
+            <p class="no-files">No files have been uploaded yet.</p>
         {% endif %}
     </div>
 </body>
