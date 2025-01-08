@@ -191,3 +191,5 @@ def get(self, request):
     return Response(serializer.data)
 
 
+def landingpage(request):
+    return render(request,'landingpage.html')

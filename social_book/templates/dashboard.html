@@ -74,8 +74,9 @@
     <h1>Uploaded Books</h1>
     <div class="container"></div>
     <div id="uploadedFiles">
-        <h2>Welcome{{username}}, here are your uploaded books</h2>
+        
         {% if uploaded_files %}
+        <h2>Welcome{{username}}, here are your uploaded books</h2>
             <div class="file-grid">
                 {% for file in uploaded_files %}
                     <div class="file-card">
