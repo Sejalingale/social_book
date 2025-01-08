@@ -22,7 +22,7 @@
         }
 
         #uploadedFiles {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 30px auto;
             padding: 20px;
             background: white;
@@ -30,9 +30,14 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
         .file-card {
             background: #f9f9ff;
-            margin-bottom: 20px;
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -41,7 +46,7 @@
 
         .file-card h3 {
             color: #6c63ff;
-            margin: 0;
+            margin: 0 0 10px;
         }
 
         .file-card p {
@@ -58,13 +63,6 @@
             text-decoration: underline;
         }
 
-        hr {
-            border: none;
-            height: 1px;
-            background: #ddd;
-            margin: 20px 0;
-        }
-
         p.no-files {
             text-align: center;
             font-size: 1.1em;
@@ -74,20 +72,24 @@
 </head>
 <body>
     <h1>Uploaded Books</h1>
+    <div class="container"></div>
     <div id="uploadedFiles">
+        <h2>Welcome{{username}}, here are your uploaded books</h2>
         {% if uploaded_files %}
-            {% for file in uploaded_files %}
-                <div class="file-card">
-                    <h3>{{ file.title }}</h3>
-                    <p><strong>Description:</strong> {{ file.description }}</p>
-                    <p><strong>Visibility:</strong> {{ file.visibility }}</p>
-                    <p><strong>Cost:</strong> ${{ file.cost }}</p>
-                    <p><strong>Year of Publication:</strong> {{ file.year_of_publication }}</p>
-                    <p><strong>File:</strong> 
-                        <a href="{{ file.file_path.url }}" target="_blank">Download/View</a>
-                    </p>
-                </div>
-            {% endfor %}
+            <div class="file-grid">
+                {% for file in uploaded_files %}
+                    <div class="file-card">
+                        <h3>{{ file.title }}</h3>
+                        <p><strong>Description:</strong> {{ file.description }}</p>
+                        <p><strong>Visibility:</strong> {{ file.visibility }}</p>
+                        <p><strong>Cost:</strong> ${{ file.cost }}</p>
+                        <p><strong>Year of Publication:</strong> {{ file.year_of_publication }}</p>
+                        <p><strong>File:</strong> 
+                            <a href="{{ file.file_path.url }}" target="_blank">View</a>
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
         {% else %}
             <p class="no-files">No files have been uploaded yet.</p>
         {% endif %}

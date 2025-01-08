@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -24,15 +23,9 @@ from rest_framework_simplejwt.views import (
 from rest_framework.routers import DefaultRouter
 
 
-urlpatterns = [
-    
+urlpatterns = [    
     path('admin/', admin.site.urls),
-    path("", include('users.urls')),
-   
-    
-   
-    
-    
+    path("", include('users.urls')),    
 ] 
 
 

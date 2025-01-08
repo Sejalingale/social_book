@@ -14,6 +14,6 @@ urlpatterns = [
     path('logout/',views.logoutPage,name='logout'),
     path('authors-and-sellers/', views.authors_and_sellers, name='authors_and_sellers'),
     path('dashboard/',views.dashboard,name='dashboard'),
-     path('verify-otp/', views.verify_otp, name='verify_otp'),
+    path('verify-otp/', views.verify_otp, name='verify_otp'),
     path('upload/',views.upload_file,name='upload_file')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

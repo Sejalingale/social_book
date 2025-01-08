@@ -22,7 +22,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
             background: white;
@@ -30,26 +30,26 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        li {
+        .card {
             background: #f9f9ff;
-            margin: 10px 0;
-            padding: 15px;
+            padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        li strong {
+        .card strong {
             color: #6c63ff;
             font-size: 1.2em;
         }
 
-        li p {
+        .card p {
             margin: 5px 0;
             font-size: 0.95em;
         }
@@ -65,16 +65,16 @@
     <h1>Authors and Sellers</h1>
     <div class="container">
         {% if public_users %}
-            <ul>
+            <div class="card-grid">
                 {% for user in public_users %}
-                    <li>
+                    <div class="card">
                         <strong>{{ user.username }}</strong>
                         <p>Email: {{ user.email }}</p>
                         <p>Address: {{ user.address }}</p>
                         <p>Age: {{ user.age }}</p>
-                    </li>
+                    </div>
                 {% endfor %}
-            </ul>
+            </div>
         {% else %}
             <p class="no-users">No public users found.</p>
         {% endif %}

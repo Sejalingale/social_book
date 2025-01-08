@@ -37,8 +37,7 @@
 		<div class="container-fluid d-flex justify-content-between align-items-center">
 			<div class="brand-logo">
 				<a href="login.html">
-					{% load static %}
-					<img src="{% static 'vendors/images/deskapp-logo.svg' %}"alt=""> 
+					<h2>Social Book</h2>
 				</a>
 			</div>
 			<div class="login-menu">
@@ -76,37 +75,44 @@
 				<div class="col-md-6 col-lg-5">
 					<div class="register-box bg-white box-shadow border-radius-10">
 						<div class="wizard-content">
-							<div class="container my-3"><h3>Create your account here</h3></div>
+							<div class="container mx-3 my-3"><h3>Create your account here</h3></div>
 							
 							
 							
-							<div class="container">
-								<form method="POST" action="">
-								{% csrf_token %}
-								<div class="mb-3">
-									<label for="exampleInputEmail1" class="form-control" class="form-label">Username</label>
-									{{form.username}}
-								</div>
-								<div class="mb-3">
-									<label for="exampleInputEmail1" class="form-control" class="form-label">Email Id</label>
-									{{form.email}}
-								</div>
-								<div class="mb-3">
-									<label for="exampleInputPassword1" class="form-control" class="form-label">Password</label>
-									{{form.password1}}
-								</div>
-								<div class="mb-3">
-									<label for="exampleInputPassword1" class="form-control" class="form-label">Password</label>
-									{{form.password2}}
-								</div>
-								<div class="mb-3">
-        							<label for="public_visibility" class="form-label">Public Visibility</label>
-        							{{ form.public_visibility }}
-       							</div>
-							
-								<button type="submit" class="btn btn-primary">Submit</button>
-							</form>
-						</div>
+<div class="container mt-4">
+	
+  <div class="row">
+    <div class="col-md-6">
+      
+      <form method="POST" action="">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          {{ form.username }}
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Id</label>
+          {{ form.email }}
+        </div>
+        <div class="mb-3">
+          <label for="password1" class="form-label">Password</label>
+          {{ form.password1 }}
+        </div>
+        <div class="mb-3">
+          <label for="password2" class="form-label">Confirm Password</label>
+          {{ form.password2 }}
+        </div>
+        <div class="mb-3">
+          <label for="public_visibility" class="form-label">Public Visibility</label>
+          {{ form.public_visibility }}
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 						</div>
 					</div>
 				</div>

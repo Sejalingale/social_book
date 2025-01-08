@@ -23,7 +23,7 @@
 		<div class="container-fluid d-flex justify-content-between align-items-center">
 			<div class="brand-logo">
 				<a href="login.html">
-					<img src="static/vendors/images/deskapp-logo.svg" alt="">
+					<h2>Social Book</h2>
 				</a>
 			</div>
 			<div class="login-menu">
@@ -33,9 +33,7 @@
 			</div>
 		</div>
 	</div>
-	{% for message in messages %}
-		<p>{{message}}</p>
-	{% endfor %}
+	
 	<div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
 		<div class="container">
 			<div class="row align-items-center">
@@ -63,13 +61,20 @@
 									
 								</div>
 								
-								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="submit" class="btn btn-primary">Login</button>
 							</form>
-					</div>
-
-					{% for message in messages %}
+							
+							<div class="container" style="display: flex; justify-content: center; align-items: center; height: 100px;">
+  								<h6>No account? Register first!</h6>
+							</div>
+							
+							<br>
+							{% for message in messages %}
 					<p>{{message}}</p>
 					{% endfor %}
+					</div>
+
+					
 
 				</div>
 			</div>

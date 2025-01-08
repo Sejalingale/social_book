@@ -24,9 +24,6 @@ import string
 
 def register(request):
     form = CustomUserCreationForm()
-     
-    
-    
     if request.method == 'POST':
          form = CustomUserCreationForm(request.POST)
          if form.is_valid():
@@ -147,11 +144,8 @@ def authors_and_sellers(request):
     context = {'public_users': public_users}
     return render(request, 'authors_and_sellers.html', context)
 
-def dashboard(request):
+def dashboard(request): 
     return render(request, 'dashboard.html')
-
-
-
 
 
 def upload_file(request):
@@ -181,6 +175,7 @@ def upload_file(request):
         return redirect('/upload/')
     
     # Fetch all uploaded files by logged in user to display
+    
     uploaded_files = UploadedFile.objects.filter(user=request.user)
     return render(request, 'dashboard.html', {'uploaded_files': uploaded_files})
 
